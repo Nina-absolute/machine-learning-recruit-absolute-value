@@ -1,0 +1,7 @@
+hidden_units = 16
+learning_rate = 0.005
+epochs = 100
+train_time = 2.972s
+peak_memory = 64.02MB
+test_loss = 0.2583
+test_accuracy = 0.8900
