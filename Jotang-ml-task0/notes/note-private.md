@@ -27,7 +27,7 @@ Python
 它是 NVIDIA 提供的 GPU 计算平台和编程模型。
 
 >*为什么一个图形处理器会适合数学计算？
-
+因为图形渲染本来就是海量、简单、独立的数学运算，而 GPU 的多个弱单核正好擅长这种并行任务。
 
 *关系*
 - GPU = 一台机器
@@ -37,6 +37,7 @@ PyTorch 想让 Python 程序指挥这块 NVIDIA GPU 工作，需要一套软件�
 
 这个平台就是 CUDA 生态。
 - PyTorch = 我们以后用来进行机器学习计算的软件框架
+
 所以：
 PyTorch 想让 Tensor 在 NVIDIA GPU 上计算，需要通过 NVIDIA 的 GPU 软件栈来完成。
 
@@ -53,24 +54,24 @@ module（模块）
 它告诉 Python：
 “不要把后面的东西当成一个普通文件来运行，而是把它当成一个 Python module 来运行。”
 
-
 #### 3. 一些奇异的小问题记录
 
 1. 使用`bash Miniconda3-latest-Linux-x86_64.sh` = `chmod +x` + `./Miniconda3-latest-Linux-x86_64.sh`
 
 
 #### 4. 任务流程总结
+```
 【题目】
 创建隔离 Python 环境
         ↓
 【我们的开发意图】
-给 Task 0 建立独立的 Python 3.9 运行环境
+给 Task 0 建立独立的 Python 3.12 运行环境
         ↓
 【技术实现】
-conda create -n ml_task0 python=3.9
+conda create -n ml_task0 python=3.12
         ↓
 【Conda 的实际工作】
-寻找并下载 Python 3.9 和依赖
+寻找并下载 Python 3.12 和依赖
         ↓
 【当前提示】
 确认是否接受软件包仓库 ToS
@@ -80,7 +81,7 @@ a + Enter
         ↓
 【继续】
 下载并创建 ml_task0
-
+```
 2. 
 ```bash
 conda activate ml_task
@@ -115,8 +116,7 @@ PyTorch 是一个开源的机器学习（Machine Learning）/深度学习（Deep
 - GPU 加速
 - 模型训练
 
-
-
+```
 有 NVIDIA GPU 时
 Python 3.9
      ↓
@@ -134,7 +134,7 @@ Python
 PyTorch
  ↓
 CPU
-
+```
 
 install：
 告诉 pip：“我要安装软件包。”
@@ -155,75 +155,30 @@ PyTorch 的计算机视觉（Computer Vision）扩展库。
 - 检查版本：
 - python -c "import torch; print(torch.__version__)"
 不要打开 Python 交互界面，也不用创建 .py 文件，直接让当前 Python 执行这一小段代码。
-
+```
 当前 Python
     ↓
 能不能 import torch？
     ↓
 PyTorch 是否真的能被 Python 使用？
+```
+- `python -m pip show torch`
 
-- python -m pip show torch
-
-python -c "import torch; print(torch.cuda.is_available())"
-torch.cuda.is_available
+`python -c "import torch; print(torch.cuda.is_available())"`
 启动当前环境里的 Python → 临时执行一小段 Python 代码 → 导入 PyTorch → 询问 PyTorch“CUDA 现在能不能用？” → 把答案打印出来。
 >直接在 python 后面加 torch.cuda.is_available()，难道 Python 不能看到 () 就识别出来吗？
 Python 解释器的命令行选项（command-line option）直接执行 <command> 中提供的 Python 代码
 没有 -c 时，紧跟在 python 后面的东西通常会被当成脚本/输入入口，而不是自动当作一段 Python 源代码
 -c <command>
-python [-各种选项] [-c command | -m module-name | script | -] [args]
+`python [-各种选项] [-c command | -m module-name | script | -] [args]`
 
-torch.cuda：
+`torch.cuda`：
 PyTorch 中负责 CUDA/GPU 相关功能的模块。
 
-is_available()：
+`is_available()`：
 检查当前 PyTorch 是否能够使用 CUDA。() 表示“调用这个函数”。空的 () 表示调用它时不需要额外传入参数。
 
-第一阶段：Python 命令行解析
-──────────────────────────
-
-python
- ↓
-看到 -c
- ↓
-知道：后面是 Python 源代码
- ↓
-把 command 交给 Python 代码解析器
-
-
-第二阶段：Python 代码解析
-──────────────────────────
-
-import torch
- ↓
-加载模块
-
-print(torch.cuda.is_available())
- ↓
-识别函数调用
- ↓
-执行 is_available()
- ↓
-得到 True / False
- ↓
-print 输出
-
-- 当前这个 ml_task 环境里的 PyTorch，能不能实际访问 CUDA/GPU？
-
-
-
-- 完成一次张量测算
-
-第一次 Tensor 运算
-Python
-  ↓
-PyTorch
-  ↓
-Tensor
-  ↓
-数学运算
-
-Tensor ：
+`Tensor` ：
 PyTorch 中用于表示多维数值数据的数据结构，可以记录数据的形状（shape）、数据类型（dtype）以及所在设备（device，如 CPU / CUDA GPU）。PyTorch 的模型输入、输出和模型参数都可以用 Tensor 表示。
 
 
@@ -244,9 +199,6 @@ test-tensor1.device
 device 时tensor的一个属性，表示这个tensor当前存储在哪个计算设备上。
 >如果不写`device='cuda'`，那么就是默认放到cpu上吗？哪怕cuda已经available
 
-
-矩阵 × 矩阵
-
 5. NumPy
 Numerical Python
 Python 里专门帮你处理大量数字、数组和矩阵计算的工具
@@ -256,35 +208,9 @@ Python 科学计算生态中的基础数值计算库，核心对象是多维数�
 
 6. Matplotlib
 这是 Python 生态中的数据可视化库，能够创建静态、动画和交互式图形。官方文档将其描述为用于创建这些可视化的综合性库。
-在机器学习中有什么用？
-
+>在机器学习中有什么用？
 - 把数据变成人可以直观看懂的图。
 - 这是 Python 生态中的数据可视化库，能够创建静态、动画和交互式图形。官方文档将其描述为用于创建这些可视化的综合性库。
-
-例如以后训练一个模型，你可能得到：
-
-Epoch 1 → loss = 0.8
-Epoch 2 → loss = 0.6
-Epoch 3 → loss = 0.4
-...
-
-我们可以画：
-
-Loss
- │\
- │ \
- │  \
- │   \
- │    \____
- └────────── Epoch
-
-这样你就能观察：
-
-模型训练过程中误差有没有下降。
-
-这里的 loss（损失） 以后我们会专门解释，现在你只需要知道：
-
-它是机器学习训练过程中用来衡量“模型当前表现有多差”的一个数值。
 
 7. scikit-learn
 传统机器学习工具箱
@@ -296,9 +222,6 @@ Loss
 预处理 Preprocessing
 机器学习模型通常不能直接把所有原始数据塞进去。
 
-device="cuda"
-torch.set_default_device("cuda")
-torch.device("cuda")
 ```python
 device = torch.device(
   "cuda" if torch.cudais_available() else "cpu"
@@ -310,6 +233,7 @@ device-agnostic 设备无关代码的优势：具体使用什么设备，由程�
 >为什么叫 cuda，不叫 gpu？是不是所有 GPU 都对应 CUDA？
 PyTorch 的设备字符串规定使用：cuda
 不加引号，python 会认为 cuda 是一个变量名
+```
 NVIDIA GPU
     ↓
 CUDA
@@ -325,10 +249,10 @@ XPU
 CPU
     ↓
 CPU
-
+```
 >官方项目名称 & python package
-scikit-learn & sklearn
-pip install & import
+`scikit-learn` & `sklearn`
+`pip install` & `import`
 从哪里安装软件包 & 加载什么软件包
 
 `.` attribute access 属性访问
@@ -337,7 +261,7 @@ pip install & import
 `__version__`
 sklearn.show_versions()
 
-
+```
 命令行世界：
 
 python --version
@@ -350,47 +274,30 @@ Python代码世界：
 sklearn.__version__
         ↑
      属性访问
-
+```
 >为什么`print`不需要占位符？
 Python 的 print 本身就是一个函数，可以接收多个参数。
 直接传多个参数：
-
-print("score:", score)
-
-
+`print("score:", score)`
 字符串格式化：
+`print(f"score: {score}")`
 
-print(f"score: {score}")
-
-都可以。
-
-### Python 
-1. list
-2. dict: key -> value
-3. def
-
-names = ["甲","乙","丙","丁"]
-scores = {
-        "甲"：99，
-        
-}
-
-
-
-模型就是一个从输入数据中寻找规律，并利用这个规律进行预测的数学结构。
 
 ### 概念补充
 1. checkpoint
 训练过程中的存档，包括epoch、model_state_dict（也就是weight, bias）、optimizer_state_dict、val_loss
 
-每一次运行train.py 是否也在运行 测试集？会不会发生数据泄露？
+每一次运行train.py 是否也在运行测试集？会不会发生数据泄露？
 
-2. ReLU如何减少梯度消失问题
+2. 关于梯度消失：
+梯度是多层导数相乘，包含激活导数的层数越多，梯度就几乎变成0.
+>ReLU如何降低梯度消失风险？
+>1. 正区间导数恒为 1，反向传播时不会因激活函数压缩梯度。
+>2. 没有饱和区，不像 Sigmoid/Tanh 在两端导数趋近 0。
+>3. 稀疏激活和计算简单，让深层网络更容易训练。
 
-关于梯度消失：
-梯度是多层导数相乘，包含激活导数的层数越多，梯度就几乎变成0，
-
-关于调用GPU：
+3. 关于调用GPU：
+```
 使用 Pytorch 框架创建一个张量，并指定设备为 CUDA。内存分配 + 主机到设备的数据传输（Host-to-Device transfer）
     ↓
 PyTorch 的底层 C++ 实现通过 CUDA Runtime API 发起 kernel launch（内核启动）。
@@ -402,3 +309,4 @@ GPU 的 grid 被划分为多个 block，每个 block 分配给一个 SM，block 
 Device-to-Host transfer（设备到主机的数据传输）。
     ↓
 输出结果
+```

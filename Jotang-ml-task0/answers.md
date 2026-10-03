@@ -54,8 +54,19 @@ batch size 是一次参数更新用的样本数，大概相当于每次日常作
 例如：
 
 对于：
+
 $$
-\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}, \qquad \mathbf{y} = \begin{bmatrix} y_1 \\ y_2 \end{bmatrix}
+\mathbf{x} =
+\begin{bmatrix}
+x_1 \\
+x_2
+\end{bmatrix},
+\qquad
+\mathbf{y} =
+\begin{bmatrix}
+y_1 \\
+y_2
+\end{bmatrix}
 $$
 
 要求 $x$ 对 $y$ 的偏导数：则最终求出来也是个矩阵。
