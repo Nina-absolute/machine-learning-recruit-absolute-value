@@ -44,7 +44,7 @@
 
 4. `mlp-overfit`：**试图过拟合模型的实验**，含源代码和 loss/accuracy 曲线。
 
-### #1 学习笔记 & 错误样本分析 & 
+### #1 👍学习笔记 & 错误样本分析 & 对照实验分析
 
 1. `answers.md`：必须知道的**回答趁热打铁**部分的笔记；
 
@@ -52,7 +52,7 @@
 
 3. `note-comprehensive.md`: **自用详细版的学习笔记 + 一些些疑问 & idea**，略有些长，虽然除 ai 整理表格外纯手搓，但完全可略过（含泪。~~（会有人懂我的细节吗QAQ（~~
 
-4. `analysis-controlled_experiment.md`：分析对照实验的速度、显存、结果变化，具体图表（位于各自对照实验的`outputs`文件夹中）嵌入笔记辅助分析。
+4. `analysis-controlled_experiment.md`：**分析对照实验的速度、显存、结果变化 + 一些些对于对照实验的感悟与反思**，具体图表（位于各自对照实验的`outputs`文件夹中）嵌入笔记辅助分析。
 
 ### #2 附件
 
@@ -61,4 +61,4 @@
 - `mlp-final.png`：原始 MLP 运行结果；
 - `orgin-DataVisualization`：原始数据可视化截图。
 
-2. **`README.md`**: 必读的文件用途说明。
+2. `README.md`: 必读的文件用途说明。
