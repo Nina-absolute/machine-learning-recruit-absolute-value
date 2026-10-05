@@ -1,0 +1,2 @@
+﻿experiment,test_loss,test_acc,test_time_s,test_samples_per_sec,test_gpu_max_alloc_MB,test_gpu_max_reserved_MB
+MLP0: origin experiment (LR = 0.01; HIDDEN_UNITS = 16; HIDDEN_LAYERS = 1),0.07716411809126536,0.9733333333333334,0.005452215998957399,55023.49871270095,64.013671875,66.0

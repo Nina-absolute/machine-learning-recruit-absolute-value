@@ -1,0 +1,2 @@
+﻿experiment,test_loss,test_acc,test_time_s,test_samples_per_sec,test_gpu_max_alloc_MB,test_gpu_max_reserved_MB
+MLP2: HIDDEN_UNITS = 32,0.07807685186465581,0.9733333333333334,0.00581979699927615,51548.18974567552,64.017578125,66.0

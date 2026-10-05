@@ -1,0 +1,2 @@
+﻿experiment,test_loss,test_acc,test_time_s,test_samples_per_sec,test_gpu_max_alloc_MB,test_gpu_max_reserved_MB
+MLP1: LR = 0.1,0.08067009593049686,0.9733333333333334,0.0051196019994677044,58598.305108715795,64.013671875,66.0

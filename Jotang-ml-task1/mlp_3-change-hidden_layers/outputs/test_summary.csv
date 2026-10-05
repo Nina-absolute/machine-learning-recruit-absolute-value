@@ -1,0 +1,2 @@
+﻿experiment,test_loss,test_acc,test_time_s,test_samples_per_sec,test_gpu_max_alloc_MB,test_gpu_max_reserved_MB
+MLP3: HIDDEN_LAYERS = 2,0.08349273969729741,0.9733333333333334,0.010070506999909412,29789.95992979287,64.01953125,66.0
