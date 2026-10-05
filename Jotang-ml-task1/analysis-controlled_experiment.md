@@ -7,6 +7,7 @@
 *实际实验表格保存的指标有：
 
 1. 训练过程表：`training_metrics.csv / .xlsx`
+
 | 表头 | 实际意义 | 计算方式 / 说明 |
 |---|---|---|
 | `epoch` | 第几个训练轮次 | 从 1 开始，到 `NUM_EPOCHS` 结束 |
@@ -21,10 +22,12 @@
 | `gpu_max_alloc_MB` | 从上次重置峰值统计以来，GPU **已分配显存的峰值**（MB） | `torch.cuda.max_memory_allocated() / 1024**2`，记录过程中出现过的最大分配量 |
 | `gpu_max_reserved_MB` | 从上次重置峰值统计以来，GPU **保留显存的峰值**（MB） | `torch.cuda.max_memory_reserved() / 1024**2` |
 | `experiment` | 实验名称标签 | 代码里固定写成 `'origin experiment'`，用于区分不同实验 |
+
 > 注意：每个 epoch 开始时调用了 `torch.cuda.reset_peak_memory_stats()`，所以 `gpu_max_alloc_MB` 和 `gpu_max_reserved_MB` 是**当前 epoch 内**的峰值，而不是整个训练过程的峰值。  
 > 如果只用 CPU，这些显存字段都是 `0.0`。
 
 2. 测试汇总表：`test_summary.csv / .xlsx`
+
 | 表头 | 实际意义 | 计算方式 / 说明 |
 |---|---|---|
 | `experiment` | 实验名称标签 | 代码里写的是 `'exp1_lr_0.1'`，但实际 `LR = 0.01`，建议改为 `'exp_lr_0.01'` 或 `'origin experiment'` |
@@ -59,6 +62,7 @@
 接下来，具体分析每个变量的影响：
 
 ### #1 LR
+
 | `experiment` | `test_loss` | `test_acc` | `test_time_s` | `test_samples_per_sec` | `test_gpu_max_alloc_MB` | `test_gpu_max_reserved_MB` |
 | --- | --- | --- | --- | --- | --- | --- |
 | MLP0: origin experiment (LR = 0.01) | 0.0771641 | 0.973333 | 0.00545222 | 55023.5 | 64.0137 | 66.0000 |
@@ -74,6 +78,7 @@
 3. 显存占用：两者完全一致，因为神经网络结构相同，参数量和激活值大小不变。
 
 ### #2 HIDDEN_UNITS
+
 | `experiment` | `test_loss` | `test_acc` | `test_time_s` | `test_samples_per_sec` | `test_gpu_max_alloc_MB` | `test_gpu_max_reserved_MB` |
 | --- | --- | --- | --- | --- | --- | --- |
 | MLP0: origin experiment (HIDDEN_UNITS = 16) | 0.0771641 | 0.973333 | 0.00545222 | 55023.5 | 64.0137 | 66.0000 |
@@ -89,6 +94,7 @@
 3. 显存略高，因为神经元数量增加后，使用的模型参数也增加，所以显存需求增大，当然由于这个神经元数量还是很小的值，所以也没有明显变化。
 
 ### #3 HIDDEN_LAYERS
+
 | `experiment` | `test_loss` | `test_acc` | `test_time_s` | `test_samples_per_sec` | `test_gpu_max_alloc_MB` | `test_gpu_max_reserved_MB` |
 | --- | --- | --- | --- | --- | --- | --- |
 | MLP0: origin experiment (HIDDEN_LAYERS = 1) | 0.0771641 | 0.973333 | 0.00545222 | 55023.5 | 64.0137 | 66.0000 |
