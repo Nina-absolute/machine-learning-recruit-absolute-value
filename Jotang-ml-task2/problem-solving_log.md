@@ -14,11 +14,11 @@
 
 2. **对应的解决方案以及一点点总结和感悟:D**
 
-## 一、 关于程序
+>下面按照遇到问题的顺序排列。
 
 ### Practice 1: 
 
-*1. `print_pixel.py`：索引超出像素 shape
+#### *1. `print_pixel.py`：索引超出像素 shape
 
 这里打印随机一个像素的坐标时，我想：对于一张图片来说，不可能存在无限多的像素点，不然的话，生活中的不同像素怎么解释呢？*像素点的索引应当是有范围的才对。*
 
@@ -35,5 +35,42 @@
 于是得到奇妙的小发现：*居然可以写 负数 [0, -1]*：
 
 事实上，真实的图片中，并不存在所谓第 -1 列，实际上这是 python 中特有的负索引表示方式，**此处的 -1 表示倒数第一**。也就是说，超出了(H, W, C)的合法范围，对于负索引其实是指不能超过 -H 或者 -W。
+----
+
+### Practice 2:
+
+#### 1. 关于在 Kaggle 上下载猫狗数据集
+
+**我本来的设想：**
+
+访问 Kaggle 官网，完成注册，使用网页下载。
+>~~so easy :D~~
+----
+**遇到问题**
+然而，点击下载按键并且选择`join the competition`后回退到原来画面没有任何区别。
+
+![](./screenshots/receive_rules.png)
+仍然无法下载，猜测是否是因为过了这个数据集对应的比赛周期，于是上网查是否有类似情况的解决方案。
+
+然后找到了这个网页：
+[how-can-i-get-old-datasets-in-kaggle](https://forums.fast.ai/t/how-can-i-get-old-datasets-in-kaggle/30832)
+
+上面说，可能是手机号未验证的问题，于是切到设置界面进行验证。
+
+![](./screenshots/phone_vertified.png)
+
+验证后，成功在网页处下载`dogs-vs-cats.zip`😊
+----
+**拓展的一点尝试**
+
+这里发现还可以使用`Kaggle API`下载，于是读了 [Kaggle 官方教程](https://www.kaggle.com/docs/api#authentication)和[一篇阅读量较大的博客](https://www.cnblogs.com/zxhoo/p/19638021)开始自己动手尝试。
+
+设置好了 API（此处图片略
+
+![](./screenshots/download_repository.png)
+
+最终下载成功👍
+----
+
 
 
