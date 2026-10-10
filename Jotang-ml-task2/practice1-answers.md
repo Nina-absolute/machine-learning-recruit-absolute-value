@@ -362,14 +362,15 @@ sobel_y = np.array([
 
 - **7-2 记录卷积核大小、padding、stride 与输出尺寸之间的关系。**
 
-\[
+$$
 \boxed{
-\text{输出尺寸}=
+\text{输出尺寸}
+=
 \left\lfloor
-\frac{\text{输入尺寸}+2×padding-卷积核大小}{stride}
+\frac{\text{输入尺寸}+2\times\text{padding}-\text{卷积核大小}}{\text{stride}}
 \right\rfloor+1
 }
-\]
+$$
 
 ### 8. 关于保存图片时如何处理超出像素范围的值
 
