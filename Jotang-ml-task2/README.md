@@ -38,7 +38,50 @@
 
 ### 2. **实践 2：CNN 猫狗分类（`practice2`）**
 
-⚠待补充
+**核心代码：**
+
+- `practice2/code/samples_preview.py`：随机展示数据集中的图片，观察图片尺寸、清晰度和背景差异。
+- `practice2/code/data.py`：统计猫狗图片数量，读取数据集，完成图像预处理、数据划分、Batch 组成及相关可视化。
+- `practice2/code/model.py`：搭建并训练 CNN，记录各层 Tensor 形状，绘制训练曲线、特征图、混淆矩阵和错误样本，并保存训练得到的模型。
+- `practice2/code/best_predict.py`：独立推理程序，加载已保存的模型，对本地图片进行分类，输出预测类别、预测概率及处理后的图片。
+- `practice2/code/better_model.py`：改进模型的实验代码，用于尝试更丰富的数据增强或其他模型改进方法。具体实验内容以代码实际实现为准。
+
+----
+
+**实验结果与输出图表：**
+
+- `practice2/outputs/sample_images.png`：随机抽取的数据集图片，用于观察原始图像的差异。
+- `practice2/outputs/preprocessing_comparison.png`：图像预处理前后的对比结果。
+- `practice2/outputs/augmented_samples.png`：数据增强后的样本展示。
+- `practice2/outputs/better_model/`：改进模型的实验结果目录，保存改进实验的相关输出。
+- `practice2/outputs/model/`：模型训练相关输出目录。
+- `practice2/outputs/predict_process/`：独立推理程序生成的相关结果。
+
+
+---
+
+**模型相关输出主要指的是**：
+
+**1. `practice2/outputs/model/`：基础模型实验结果**
+
+- `best_model.pth`：最终选定的最佳模型权重。
+- `cnn_aug_best.pth`：使用数据增强训练得到的最佳模型权重。
+- `cnn_plain_best.pth`：未使用额外数据增强训练得到的最佳模型权重。
+- `cnn_aug_curves.png`：数据增强模型的训练曲线，用于观察训练过程中的 Loss 和 Accuracy 变化。
+- `cnn_plain_curves.png`：基础模型的训练曲线，用于观察训练过程中的 Loss 和 Accuracy 变化。
+- `confusion_matrix.png`：混淆矩阵，用于分析模型对猫、狗两类样本的分类情况。
+- `feature_maps.png`：CNN 卷积层输出的特征图，用于观察不同通道提取的图像特征。
+- `misclassified_samples.png`：模型预测错误的样本，用于分析分类失败的原因。
+- `model_architecture.png`：CNN 模型结构图，用于展示网络的主要组成及数据流向。
+
+**2. `practice2/outputs/better_model/`：改进模型实验结果**
+
+- `better_augmented_samples.png`：改进数据增强方案后的样本展示，用于观察不同增强变换对图像的影响。
+- `cnn_aug_best.pth`：改进实验中保存的数据增强模型权重。
+- `cnn_aug_curves.png`：改进实验中数据增强模型的训练曲线。
+- `confusion_matrix.png`：改进模型的混淆矩阵，用于观察模型的分类表现。
+- `experiment_report.md`：改进模型的实验报告，记录实验方案、结果及分析。
+- `misclassified_samples.png`：改进模型预测错误的样本，用于分析剩余的分类问题。
 
 
 **-----**
@@ -52,6 +95,10 @@
 3. `note-comprehensive.md`：**综合学习笔记 + 个人疑问与思考**，记录实践过程中涉及的知识点、原理解释以及额外的想法。（复习自用版，具体内容以文件正文为准。）
 
 4. `problem-solving_log.md`：**问题排查与解决记录**，记录实践过程中遇到的问题、排查思路、解决方法及相关经验。
+
+5. `practice2-answers.md`：**实践 2 的问题与解答**，用于整理猫狗分类相关题目的回答。
+
+6. `private-extention/data_augmention.md`：猫狗二分类任务：数据增强的合理性与风险分析。
 
 **-----**
 
