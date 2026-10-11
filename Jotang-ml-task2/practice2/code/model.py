@@ -1,4 +1,6 @@
 
+import random
+import numpy as np
 import sys
 import time
 from pathlib import Path
@@ -13,16 +15,29 @@ from torch.optim import Adam
 from torchvision import transforms
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
+SEED = 10
+
+def set_seed(seed=SEED):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True)
+
+set_seed(SEED)
+
 from data import (
     train_loader,
     aug_train_loader,
     val_loader,
     test_loader,
     test_dataset,
-    OUTPUT_DIR,
     IMAGE_SIZE,
 )
-
+OUTPUT_DIR = Path(__file__).resolve().parent.parent / "outputs" / "model"
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 EPOCHS = 10
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

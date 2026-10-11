@@ -19,8 +19,8 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # 当前文件位于 practice2/code/
 ROOT_DIR = Path(__file__).resolve().parent
 
-# 模型文件位于 practice2/outputs/best_model.pth
-MODEL_PATH = ROOT_DIR.parent / "outputs" / "best_model.pth"
+# 模型文件位于 practice2/outputs/model/best_model.pth
+MODEL_PATH = ROOT_DIR.parent / "outputs" / "model" / "best_model.pth"
 
 # 推理结果保存目录
 OUTPUT_DIR = ROOT_DIR.parent / "outputs" / "predict_processed"
