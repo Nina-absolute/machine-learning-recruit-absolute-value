@@ -14,7 +14,7 @@
 
 关于我的草稿 vs GPT 生成：
 
-![](./screenshots/graph_craft.jpg)
+![](./screenshots/calculation_craft.jpg)
 
 ![](./screenshots/computation_graph.png)
 
@@ -31,6 +31,8 @@
 ![](./screenshots/check_result.png)
 
 完全一致👍（当然我怀疑这是因为此处计算比较简单，所以 Numpy 和 PyTorch tensor 的计算精度还看不出区别）
+
+-----
 
 ## 实践 2：神经网络的梯度
 
