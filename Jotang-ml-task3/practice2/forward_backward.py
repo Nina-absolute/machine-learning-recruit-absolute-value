@@ -1,49 +1,31 @@
-"""
-Task 3：前向传播与反向传播实践（单样本）
-目标：使用 NumPy 手算梯度，并与 PyTorch autograd 自动求导进行对比。
-数据源：sklearn.datasets.make_moons
-随机种子：12
-隐藏层神经元数量：4
-输入特征数：2 (make_moons 默认特征数)
-初始实验：单样本 (Batch Size = 1)
-
-变量形状（单样本）：
-X:   (1, 2)    输入
-W1:  (2, 4)    第一层权重
-b1:  (1, 4)    第一层偏置
-Z1:  (1, 4)    第一层线性输出
-A1:  (1, 4)    ReLU 输出
-W2:  (4, 1)    第二层权重
-b2:  (1, 1)    第二层偏置
-Z2:  (1, 1)    第二层线性输出
-p:   (1, 1)    Sigmoid 输出
-y:   (1, 1)    二分类标签
-L:   ()        标量损失
-
-梯度形状：
-dL_dW1:  (2, 4)
-dL_db1:  (1, 4)
-dL_dW2:  (4, 1)
-dL_db2:  (1, 1)
-"""
+# 单样本计算
 
 import numpy as np
 import torch
 from sklearn.datasets import make_moons
 
-np.random.seed(12)
-torch.manual_seed(12)
+# ==================== 0. 超参数 ====================
+SEED = 12
+BATCH_SIZE = 1
+N_SAMPLES = 10
+NOISE = 0.1
+RANDOM_STATE = 12
+HIDDEN_UNITS = 4
+
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+
 
 # ==================== 1. 初始化数据与参数 ====================
 # 生成 make_moons 数据，取第 1 个样本
-X_data, y_data = make_moons(n_samples=10, noise=0.1, random_state=12)
-X = X_data[0:1].astype(np.float32)                  # (1, 2)
-y = y_data[0:1].reshape(1, 1).astype(np.float32)    # (1, 1)
+X_data, y_data = make_moons(n_samples=N_SAMPLES, noise=NOISE, random_state=RANDOM_STATE)
+X = X_data[0:BATCH_SIZE].astype(np.float32)                  # (1, 2)
+y = y_data[0:BATCH_SIZE].reshape(BATCH_SIZE, 1).astype(np.float32)  # (1, 1)
 
-W1 = np.random.randn(2, 4).astype(np.float32)       # (2, 4)
-b1 = np.random.randn(1, 4).astype(np.float32)       # (1, 4)
-W2 = np.random.randn(4, 1).astype(np.float32)       # (4, 1)
-b2 = np.random.randn(1, 1).astype(np.float32)       # (1, 1)
+W1 = np.random.randn(2, HIDDEN_UNITS).astype(np.float32)     # (2, 4)
+b1 = np.random.randn(1, HIDDEN_UNITS).astype(np.float32)     # (1, 4)
+W2 = np.random.randn(HIDDEN_UNITS, 1).astype(np.float32)     # (4, 1)
+b2 = np.random.randn(1, 1).astype(np.float32)                # (1, 1)
 
 # ==================== 2. NumPy 前向传播 ====================
 Z1 = X @ W1 + b1                   # (1, 4)

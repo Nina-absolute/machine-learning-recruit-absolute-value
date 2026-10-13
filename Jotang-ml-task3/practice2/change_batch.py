@@ -1,50 +1,30 @@
-"""
-Task 3：前向传播与反向传播实践（小批量 Batch）
-目标：观察换成小批量（N=4）后，计算公式和形状的变化。
-数据源：sklearn.datasets.make_moons
-随机种子：12
-隐藏层神经元数量：4
-输入特征数：2
-Batch Size: 4
-
-变量形状（Batch N=4）：
-X:   (4, 2)    输入
-W1:  (2, 4)    第一层权重
-b1:  (1, 4)    第一层偏置
-Z1:  (4, 4)    第一层线性输出
-A1:  (4, 4)    ReLU 输出
-W2:  (4, 1)    第二层权重
-b2:  (1, 1)    第二层偏置
-Z2:  (4, 1)    第二层线性输出
-p:   (4, 1)    Sigmoid 输出
-y:   (4, 1)    二分类标签
-L:   ()        标量损失
-
-梯度形状：
-dL_dW1:  (2, 4)
-dL_db1:  (1, 4)
-dL_dW2:  (4, 1)
-dL_db2:  (1, 1)
-"""
+# 一个 batch 的计算
 
 import numpy as np
 import torch
 from sklearn.datasets import make_moons
 
-np.random.seed(12)
-torch.manual_seed(12)
+# ==================== 0. 超参数 ====================
+SEED = 12
+BATCH_SIZE = 4
+N_SAMPLES = 10
+NOISE = 0.1
+RANDOM_STATE = 12
+HIDDEN_UNITS = 4
 
-N = 4  # Batch Size
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+
 
 # ==================== 1. 初始化数据与参数 ====================
-X_data, y_data = make_moons(n_samples=10, noise=0.1, random_state=12)
-X = X_data[0:N].astype(np.float32)                  # (4, 2)
-y = y_data[0:N].reshape(N, 1).astype(np.float32)    # (4, 1)
+X_data, y_data = make_moons(n_samples=N_SAMPLES, noise=NOISE, random_state=RANDOM_STATE)
+X = X_data[0:BATCH_SIZE].astype(np.float32)                  # (4, 2)
+y = y_data[0:BATCH_SIZE].reshape(BATCH_SIZE, 1).astype(np.float32)  # (4, 1)
 
-W1 = np.random.randn(2, 4).astype(np.float32)       # (2, 4)
-b1 = np.random.randn(1, 4).astype(np.float32)       # (1, 4)
-W2 = np.random.randn(4, 1).astype(np.float32)       # (4, 1)
-b2 = np.random.randn(1, 1).astype(np.float32)       # (1, 1)
+W1 = np.random.randn(2, HIDDEN_UNITS).astype(np.float32)     # (2, 4)
+b1 = np.random.randn(1, HIDDEN_UNITS).astype(np.float32)     # (1, 4)
+W2 = np.random.randn(HIDDEN_UNITS, 1).astype(np.float32)     # (4, 1)
+b2 = np.random.randn(1, 1).astype(np.float32)                # (1, 1)
 
 # ==================== 2. NumPy 前向传播 (Batch) ====================
 Z1 = X @ W1 + b1                   # (4, 4)
@@ -54,8 +34,7 @@ p = 1 / (1 + np.exp(-Z2))          # (4, 1)
 L = - (y * np.log(p) + (1 - y) * np.log(1 - p)).mean()  # ()
 
 # ==================== 3. NumPy 手动反向传播 (Batch) ====================
-# 核心修改：除以 N
-dL_dZ2 = (p - y) / N                      # (4, 1)
+dL_dZ2 = (p - y) / BATCH_SIZE                      # (4, 1)
 
 dL_dW2 = A1.T @ dL_dZ2                    # (4, 1)
 dL_db2 = np.sum(dL_dZ2, axis=0, keepdims=True)  # (1, 1)
@@ -91,7 +70,7 @@ dL_db2_pt = b2_pt.grad.numpy()
 
 # ==================== 5. 结果对比 ====================
 print("\n" + "="*40)
-print("NumPy 手算与 PyTorch 自动求导对比 (Batch N=4)")
+print("NumPy 手算与 PyTorch 自动求导对比 (Batch N=BATCH_SIZE)")
 print("="*40)
 
 def compare(name, np_grad, pt_grad):
