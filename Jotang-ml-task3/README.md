@@ -1,6 +1,6 @@
-# Jotang-ml-task2
+# Jotang-ml-task3
 
-**本仓库用于收录 Jotang-ml-task 2 的所有解答、实验结果与拓展学习记录。**
+**本仓库用于收录 Jotang-ml-task 3 的所有解答、实验结果与拓展学习记录。**
 
 ## 写在前面
 
